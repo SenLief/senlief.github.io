@@ -27,6 +27,25 @@
     
     
     <entry>
+      <title>WSL配置Golang开发环境并配置vscode</title>
+      <link href="//post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html"/>
+      <url>//post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="WSL配置Golang开发环境并配置vscode"><a href="#WSL配置Golang开发环境并配置vscode" class="headerlink" title="WSL配置Golang开发环境并配置vscode"></a>WSL配置Golang开发环境并配置vscode</h1><blockquote><p>把开发环境都放在wsl上</p></blockquote><ol><li>安装golang<ol><li>下载<a href="https://golang.org/dl/go1.17.1.linux-amd64.tar.gz">Golang</a></li><li>解压<br>$ sudo tar -C &#x2F;usr&#x2F;local -xzf go1.17.1.linux-amd64.tar.gz</li><li>配置环境变量</li></ol></li></ol><pre><code class="Bash">$ vim .zshrcexport PATH=&quot;$PATH:/usr/local/go/bin&quot;$ sudo chmod +x /usr/local/go/bin</code></pre><ol start="4"><li>验证go是否安装<br><code>$ go version</code></li><li>配置go环境变量</li></ol><pre><code>// 获取go相关变量$ go env// 设置go proxy$ go env -w GOPROXY=https://goproxy.cn,direct// 设置gopath$ go env -w GOPATH=/home/zjan/.go</code></pre><ol start="2"><li>小打小闹vscode足以<ol><li>vscode安装go扩展<ol><li>建议先连接到wsl，会安装wsl里面去。</li></ol></li><li>安装go插件依赖包<ol><li><code>ctrl</code> +<code>shift</code> +<code>p</code> 输入<code>go install</code> 勾选安装所有的包</li></ol></li></ol></li><li>Enjoy！</li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vscode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title></title>
       <link href="/2023/06/28/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8FCloudflare%20Tunnel/"/>
       <url>/2023/06/28/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8FCloudflare%20Tunnel/</url>
