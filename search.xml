@@ -44,6 +44,27 @@
     </entry>
     
     
+    
+    <entry>
+      <title>Win11下全新安装wslg以及配置</title>
+      <link href="//post/new-installation-wslg-and-configuration-under-win11-1k6ffb.html"/>
+      <url>//post/new-installation-wslg-and-configuration-under-win11-1k6ffb.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="Win11下全新安装wslg以及配置"><a href="#Win11下全新安装wslg以及配置" class="headerlink" title="Win11下全新安装wslg以及配置"></a>Win11下全新安装wslg以及配置</h1><blockquote><p>wslg是基于wsl2上的图形化界面，可以和win11很好的契合，目前发现最大的bug是图形传输质量不行，RDP的分辨率太低了，对付用。</p></blockquote><ol><li>为wsl2提供gpu加速驱动<ol><li><a href="https://drivers.amd.com/drivers/DX12-WSL-Radeon-Software-Adrenalin-20.45.01.31-Dec15.exe">AMD GPU driver for WSL</a></li><li><a href="https://www.intel.com/content/www/us/en/download/19344/30579/intel-graphics-windows-10-windows-11-dch-drivers.html">Intel GPU driver for WSL</a></li><li><a href="https://developer.nvidia.com/cuda/wsl">NVIDIA GPU driver for WSL</a></li></ol></li><li>全新安装wslg<ol><li><code>win</code> +<code>x</code> 打开windows终端</li><li>列出可用的Linux发行版<br><code>wsl --list --online</code></li></ol></li></ol><p><img src="/assets/image-20210926153548-gpj1pas.png" alt="image.png"></p><ol start="3"><li>安装发行版，这里以Ubuntu为例<br><code>wsl --install -d Ubuntu</code></li><li>稍等片刻，提示输入username和password即安装成功</li><li>默认位置安装在<code>C:\Users\zjan\AppData\Local\Packages</code>有个Ubuntu开头的文件夹中</li><li>Ubuntu常用配置<ol><li>更新换源</li></ol></li></ol><pre><code class="Bash">$ sudo cp /etc/apt/sources.list /etc/apt/sources/list.bak$ sudo vim /etc/apt/sources.list# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse# 预发布软件源，不建议启用# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse$ sudo apt updapte -y$ sudo apt upgrade -y</code></pre><ol start="2"><li>安装zsh并配置ohmyzsh</li></ol><pre><code class="Bash">// 安装zsh$ sudo apt install zsh// 配置ohmyzsh$ sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;// 配置ohmyzsh插件//// zsh-autosuggestions$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions//// zsh-syntax-highlighting$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting// 启用插件$ vim .zshrcplugins=(git z zsh-autosuggestions zsh-syntax-highlighting)</code></pre><ol start="3"><li>配置代理</li></ol><pre><code>$ vim .zshrchost_ip=$(cat /etc/resolv.conf |grep &quot;nameserver&quot; |cut -f 2 -d &quot; &quot;)alias proxy=&quot;export ALL_PROXY=&quot;http://$host_ip:7890&quot;&quot;alias unproxy=&quot;unset ALL_PROXY&quot;</code></pre><ol start="4"><li>安装wslg<ol><li>安装一个gui应用就会安装图形界面工具了</li><li><code>$ sudo apt install gedit</code></li></ol></li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> wsl2 </tag>
+            
+            <tag> wslg </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>

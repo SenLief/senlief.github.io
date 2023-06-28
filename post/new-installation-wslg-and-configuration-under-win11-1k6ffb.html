@@ -1,0 +1,103 @@
+<!DOCTYPE html><html class="appearance-auto" lang="zh-CN"><head><meta charset="UTF-8"><title>Win11下全新安装wslg以及配置</title><meta name="description" content="人生天地间，忽如远行客"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.svg"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="Win11下全新安装wslg以及配置
+wslg是基于wsl2上的图形化界面，可以和win11很好的契合，目前发现最大的bug是图形传输质量不行，RDP的分辨率太低了，对付用。
+
+
+为wsl2提供gpu加速驱动
+AMD GPU driver for WSL
+Intel GPU driver for WSL
+NVIDIA GPU driver for WSL
+
+
+全新安装wslg
+win +x 打开windows终端
+列出可用的Linux发行版wsl --list --online
+
+
+
+
+
+安装发行版，这里以Ubuntu为例wsl --install -d Ubuntu
+稍等片刻，提示输入username和password即安装成功
+默认位置安装在C:\Users\zjan\AppData\Local\Pac.."><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ZDawn Blog" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Janz's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Win11下全新安装wslg以及配置</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">点击返回顶部</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">首页</a></h3><h3 class="is-inline-block"><a href="/about">关于</a></h3><h3 class="is-inline-block"><a href="/archives">归档</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Win11%E4%B8%8B%E5%85%A8%E6%96%B0%E5%AE%89%E8%A3%85wslg%E4%BB%A5%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-text">Win11下全新安装wslg以及配置</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/wsl2"><i class="tag post-item-tag">wsl2</i></a><a href="/tags/wslg"><i class="tag post-item-tag">wslg</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Win11下全新安装wslg以及配置</h1><time class="has-text-grey" datetime="2023-06-28T13:01:42.303Z">2023-06-28</time><article class="mt-2 post-content"><h1 id="Win11下全新安装wslg以及配置"><a href="#Win11下全新安装wslg以及配置" class="headerlink" title="Win11下全新安装wslg以及配置"></a>Win11下全新安装wslg以及配置</h1><blockquote>
+<p>wslg是基于wsl2上的图形化界面，可以和win11很好的契合，目前发现最大的bug是图形传输质量不行，RDP的分辨率太低了，对付用。</p>
+</blockquote>
+<ol>
+<li>为wsl2提供gpu加速驱动<ol>
+<li><a target="_blank" rel="noopener" href="https://drivers.amd.com/drivers/DX12-WSL-Radeon-Software-Adrenalin-20.45.01.31-Dec15.exe">AMD GPU driver for WSL</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/download/19344/30579/intel-graphics-windows-10-windows-11-dch-drivers.html">Intel GPU driver for WSL</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda/wsl">NVIDIA GPU driver for WSL</a></li>
+</ol>
+</li>
+<li>全新安装wslg<ol>
+<li><code>win</code> +<code>x</code> 打开windows终端</li>
+<li>列出可用的Linux发行版<br><code>wsl --list --online</code></li>
+</ol>
+</li>
+</ol>
+<p><img src="/assets/image-20210926153548-gpj1pas.png" alt="image.png"></p>
+<ol start="3">
+<li>安装发行版，这里以Ubuntu为例<br><code>wsl --install -d Ubuntu</code></li>
+<li>稍等片刻，提示输入username和password即安装成功</li>
+<li>默认位置安装在<code>C:\Users\zjan\AppData\Local\Packages</code>有个Ubuntu开头的文件夹中</li>
+<li>Ubuntu常用配置<ol>
+<li>更新换源</li>
+</ol>
+</li>
+</ol>
+<pre><code class="Bash">$ sudo cp /etc/apt/sources.list /etc/apt/sources/list.bak
+$ sudo vim /etc/apt/sources.list
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+
+# 预发布软件源，不建议启用
+# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse
+
+$ sudo apt updapte -y
+$ sudo apt upgrade -y
+</code></pre>
+<ol start="2">
+<li>安装zsh并配置ohmyzsh</li>
+</ol>
+<pre><code class="Bash">// 安装zsh
+$ sudo apt install zsh
+
+// 配置ohmyzsh
+$ sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;
+
+// 配置ohmyzsh插件
+//// zsh-autosuggestions
+$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+//// zsh-syntax-highlighting
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting
+
+// 启用插件
+$ vim .zshrc
+plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)
+</code></pre>
+<ol start="3">
+<li>配置代理</li>
+</ol>
+<pre><code>$ vim .zshrc
+host_ip=$(cat /etc/resolv.conf |grep &quot;nameserver&quot; |cut -f 2 -d &quot; &quot;)
+alias proxy=&quot;export ALL_PROXY=&quot;http://$host_ip:7890&quot;&quot;
+alias unproxy=&quot;unset ALL_PROXY&quot;
+</code></pre>
+<ol start="4">
+<li>安装wslg<ol>
+<li>安装一个gui应用就会安装图形界面工具了</li>
+<li><code>$ sudo apt install gedit</code></li>
+</ol>
+</li>
+</ol>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html" title="WSL配置Golang开发环境并配置vscode"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">上一页: WSL配置Golang开发环境并配置vscode</span></a></section></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com//"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/SenLief"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--><a title="facebook" target="_blank" rel="noopener nofollow" href="//www.facebook.com//"><i class="iconfont icon-tian7_facebook"></i></a></section><p><span>Copyright ©</span><span> Janz 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
