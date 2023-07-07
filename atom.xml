@@ -6,7 +6,7 @@
   <link href="https://www.zdawn.net/atom.xml" rel="self"/>
   
   <link href="https://www.zdawn.net/"/>
-  <updated>2023-06-28T12:33:04.000Z</updated>
+  <updated>2023-06-28T12:53:22.000Z</updated>
   <id>https://www.zdawn.net/</id>
   
   <author>
@@ -17,10 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>WSL配置Golang开发环境并配置vscode</title>
+    <link href="https://www.zdawn.net/post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html"/>
+    <id>https://www.zdawn.net/post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html</id>
+    <published>2023-07-07T10:44:11.393Z</published>
+    <updated>2023-06-28T12:53:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="WSL配置Golang开发环境并配置vscode"><a href="#WSL配置Golang开发环境并配置vscode" class="headerlink" title="WSL配置Golang开发环境并配置vscode"></a>WSL配置Golang开发环境并配置vscode</h1><blockquote><p>把开发环境都放在wsl上</p></blockquote><ol><li>安装golang<ol><li>下载<a href="https://golang.org/dl/go1.17.1.linux-amd64.tar.gz">Golang</a></li><li>解压<br>$ sudo tar -C &#x2F;usr&#x2F;local -xzf go1.17.1.linux-amd64.tar.gz</li><li>配置环境变量</li></ol></li></ol><pre><code class="Bash">$ vim .zshrcexport PATH=&quot;$PATH:/usr/local/go/bin&quot;$ sudo chmod +x /usr/local/go/bin</code></pre><ol start="4"><li>验证go是否安装<br><code>$ go version</code></li><li>配置go环境变量</li></ol><pre><code>// 获取go相关变量$ go env// 设置go proxy$ go env -w GOPROXY=https://goproxy.cn,direct// 设置gopath$ go env -w GOPATH=/home/zjan/.go</code></pre><ol start="2"><li>小打小闹vscode足以<ol><li>vscode安装go扩展<ol><li>建议先连接到wsl，会安装wsl里面去。</li></ol></li><li>安装go插件依赖包<ol><li><code>ctrl</code> +<code>shift</code> +<code>p</code> 输入<code>go install</code> 勾选安装所有的包</li></ol></li></ol></li><li>Enjoy！</li></ol>]]></content>
+    
+    
+    <summary type="html">wsl配置golang开发环境并配置vscode把开发环境都放在wsl上安装golang下载golang解压sudotarcusrlocalxzfgolinuxamdtargz配置环境变量vimzshrcexportpath=sudochmodxusrlocalgobin验证go是否安装goversion配置go环境变量获取go相关变量goenv设置goproxygoenvwgoproxy=https_goproxycndirect设置gopathgoenvwgopath=homezjango小打小闹vs</summary>
+    
+    
+    
+    
+    <category term="vscode" scheme="https://www.zdawn.net/tags/vscode/"/>
+    
+  </entry>
+  
+  <entry>
     <title>WSL2中安装Goland</title>
     <link href="https://www.zdawn.net/post/install-goland-in-wsl2-zy3zlx.html"/>
     <id>https://www.zdawn.net/post/install-goland-in-wsl2-zy3zlx.html</id>
-    <published>2023-06-28T13:04:00.775Z</published>
+    <published>2023-07-07T10:44:11.389Z</published>
     <updated>2023-06-28T12:33:04.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="WSL2中安装Goland"><a href="#WSL2中安装Goland" class="headerlink" title="WSL2中安装Goland"></a>WSL2中安装Goland</h1><blockquote><p>之前一直用vscode作为开发golang的工具的，但是vscode总有不舒服的地方，比如智能提示和跳转，所以还是转到goland IDE中去，之前的想法是把goland安装到windows中，但是由于wsl2和win11的文件管理器是通过网络的，真的太慢了，幸好win11的wsl2支持wslg，所以直接把goland安装到wslg中。</p></blockquote><ol><li><h3 id="下载goland"><a href="#下载goland" class="headerlink" title="下载goland"></a>下载goland</h3><ol><li>官网：[<a href="https://www.jetbrains.com/go/">GoLand: A Clever IDE to Go by JetBrains</a>]</li><li>下载地址：[<a href="https://www.jetbrains.com/go/">GoLand: A Clever IDE to Go by JetBrains</a>]</li></ol></li><li><h3 id="安装goland"><a href="#安装goland" class="headerlink" title="安装goland"></a>安装goland</h3><ol><li><code>$ tar -C /usr/local -xvf GoLand-2021.2.3.tar.gz</code></li><li><code>$ sudo chmod +x /usr/local/GoLand-2021.2.3/bin/goland.sh</code></li></ol></li><li><h3 id="配置别名访问"><a href="#配置别名访问" class="headerlink" title="配置别名访问"></a>配置别名访问</h3><ol><li><code>$ vim ~/.zshrc</code></li><li>再最后添加一行<br> <code>alias goland=&quot;sh /usr/local/GoLand-2021.2.3/bin/goland.sh &gt; ~/.log/goland.log 2&gt;&amp;1  &amp;&quot;</code></li><li><code>$ source ~/.zshrc</code></li></ol></li><li><h3 id="运行goland"><a href="#运行goland" class="headerlink" title="运行goland"></a>运行goland</h3><ol><li><code>$ goland</code></li><li>Enjoy!</li></ol></li></ol>]]></content>
@@ -43,7 +62,7 @@
     <title>Win11下全新安装wslg以及配置</title>
     <link href="https://www.zdawn.net/post/new-installation-wslg-and-configuration-under-win11-1k6ffb.html"/>
     <id>https://www.zdawn.net/post/new-installation-wslg-and-configuration-under-win11-1k6ffb.html</id>
-    <published>2023-06-28T13:04:00.775Z</published>
+    <published>2023-07-07T10:44:11.389Z</published>
     <updated>2023-06-28T13:03:49.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Win11下全新安装wslg以及配置"><a href="#Win11下全新安装wslg以及配置" class="headerlink" title="Win11下全新安装wslg以及配置"></a>Win11下全新安装wslg以及配置</h1><blockquote><p>wslg是基于wsl2上的图形化界面，可以和win11很好的契合，目前发现最大的bug是图形传输质量不行，RDP的分辨率太低了，对付用。</p></blockquote><ol><li>为wsl2提供gpu加速驱动<ol><li><a href="https://drivers.amd.com/drivers/DX12-WSL-Radeon-Software-Adrenalin-20.45.01.31-Dec15.exe">AMD GPU driver for WSL</a></li><li><a href="https://www.intel.com/content/www/us/en/download/19344/30579/intel-graphics-windows-10-windows-11-dch-drivers.html">Intel GPU driver for WSL</a></li><li><a href="https://developer.nvidia.com/cuda/wsl">NVIDIA GPU driver for WSL</a></li></ol></li><li>全新安装wslg<ol><li><code>win</code> +<code>x</code> 打开windows终端</li><li>列出可用的Linux发行版<br><code>wsl --list --online</code></li></ol></li></ol><p><img src="/assets/image-20210926153548-gpj1pas.png" alt="image.png"></p><ol start="3"><li>安装发行版，这里以Ubuntu为例<br><code>wsl --install -d Ubuntu</code></li><li>稍等片刻，提示输入username和password即安装成功</li><li>默认位置安装在<code>C:\Users\zjan\AppData\Local\Packages</code>有个Ubuntu开头的文件夹中</li><li>Ubuntu常用配置<ol><li>更新换源</li></ol></li></ol><pre><code class="Bash">$ sudo cp /etc/apt/sources.list /etc/apt/sources/list.bak$ sudo vim /etc/apt/sources.list# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiversedeb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse# 预发布软件源，不建议启用# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse$ sudo apt updapte -y$ sudo apt upgrade -y</code></pre><ol start="2"><li>安装zsh并配置ohmyzsh</li></ol><pre><code class="Bash">// 安装zsh$ sudo apt install zsh// 配置ohmyzsh$ sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;// 配置ohmyzsh插件//// zsh-autosuggestions$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions//// zsh-syntax-highlighting$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting// 启用插件$ vim .zshrcplugins=(git z zsh-autosuggestions zsh-syntax-highlighting)</code></pre><ol start="3"><li>配置代理</li></ol><pre><code>$ vim .zshrchost_ip=$(cat /etc/resolv.conf |grep &quot;nameserver&quot; |cut -f 2 -d &quot; &quot;)alias proxy=&quot;export ALL_PROXY=&quot;http://$host_ip:7890&quot;&quot;alias unproxy=&quot;unset ALL_PROXY&quot;</code></pre><ol start="4"><li>安装wslg<ol><li>安装一个gui应用就会安装图形界面工具了</li><li><code>$ sudo apt install gedit</code></li></ol></li></ol>]]></content>
@@ -63,21 +82,19 @@
   </entry>
   
   <entry>
-    <title>WSL配置Golang开发环境并配置vscode</title>
-    <link href="https://www.zdawn.net/post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html"/>
-    <id>https://www.zdawn.net/post/wsl-configuration-golang-development-environment-and-configure-vscode-rp4oy.html</id>
-    <published>2023-06-28T13:04:00.775Z</published>
-    <updated>2023-06-28T12:53:22.000Z</updated>
+    <title>title</title>
+    <link href="https://www.zdawn.net/2023/07/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/"/>
+    <id>https://www.zdawn.net/2023/07/07/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/</id>
+    <published>2023-07-07T10:42:42.986Z</published>
+    <updated>2023-07-07T10:44:11.393Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="WSL配置Golang开发环境并配置vscode"><a href="#WSL配置Golang开发环境并配置vscode" class="headerlink" title="WSL配置Golang开发环境并配置vscode"></a>WSL配置Golang开发环境并配置vscode</h1><blockquote><p>把开发环境都放在wsl上</p></blockquote><ol><li>安装golang<ol><li>下载<a href="https://golang.org/dl/go1.17.1.linux-amd64.tar.gz">Golang</a></li><li>解压<br>$ sudo tar -C &#x2F;usr&#x2F;local -xzf go1.17.1.linux-amd64.tar.gz</li><li>配置环境变量</li></ol></li></ol><pre><code class="Bash">$ vim .zshrcexport PATH=&quot;$PATH:/usr/local/go/bin&quot;$ sudo chmod +x /usr/local/go/bin</code></pre><ol start="4"><li>验证go是否安装<br><code>$ go version</code></li><li>配置go环境变量</li></ol><pre><code>// 获取go相关变量$ go env// 设置go proxy$ go env -w GOPROXY=https://goproxy.cn,direct// 设置gopath$ go env -w GOPATH=/home/zjan/.go</code></pre><ol start="2"><li>小打小闹vscode足以<ol><li>vscode安装go扩展<ol><li>建议先连接到wsl，会安装wsl里面去。</li></ol></li><li>安装go插件依赖包<ol><li><code>ctrl</code> +<code>shift</code> +<code>p</code> 输入<code>go install</code> 勾选安装所有的包</li></ol></li></ol></li><li>Enjoy！</li></ol>]]></content>
-    
-    
-    <summary type="html">wsl配置golang开发环境并配置vscode把开发环境都放在wsl上安装golang下载golang解压sudotarcusrlocalxzfgolinuxamdtargz配置环境变量vimzshrcexportpath=sudochmodxusrlocalgobin验证go是否安装goversion配置go环境变量获取go相关变量goenv设置goproxygoenvwgoproxy=https_goproxycndirect设置gopathgoenvwgopath=homezjango小打小闹vs</summary>
+    <content type="html"><![CDATA[<h2 id="这是一篇测试文章"><a href="#这是一篇测试文章" class="headerlink" title="这是一篇测试文章"></a>这是一篇测试文章</h2><p><img src="https://vip2.loli.io/2023/07/07/1NwWHxtFIVbjyE7.png" alt="https://vip2.loli.io/2023/07/07/1NwWHxtFIVbjyE7.png"></p><p>希望可以成功，但是这个真的是太卡了。</p>]]></content>
     
     
+    <summary type="html">这是一篇测试文章  希望可以成功，但是这个真的是太卡了。 </summary>
     
     
-    <category term="vscode" scheme="https://www.zdawn.net/tags/vscode/"/>
+    
     
   </entry>
   
