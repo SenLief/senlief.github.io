@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Do one thing at a time and do well.">
+    <meta name="author" content="Janz">
+    
+    <title>
+        
+            我的旁路由网关OPENWRT配置和常用服务 |
+        
+        Dawnz Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png">
+    
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.zjan.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Dawnz Blog","author":"Janz","avatar":"https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg","logo":"/images/logo.jpg","favicon":"https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","About":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"人生天地间，忽入远行客 || Do one thing at a time and do well.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/SenLief","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null,"email":"qqleap@gmail.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":null},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":false},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.529213.xyz/","region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"unpkg"},"pjax":{"enable":true},"footer":{"since":2018,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":false,"provider":"github","url":null},"shields_style":{"enable":false,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","version":"4.0.7"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Dawnz Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        我的旁路由网关OPENWRT配置和常用服务
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Janz</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024-09-23 16:39:03</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Mon Sep 23 2024 22:28:28 GMT+0000">2024-09-23 22:28:28</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/openwrt/">openwrt</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/mihomo/">mihomo</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/N1/">N1</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%97%81%E8%B7%AF%E7%94%B1/">旁路由</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/wireguard/">wireguard</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/tproxy/">tproxy</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h1 id="我的旁路由网关OPENWRT配置和常用服务"><a href="#我的旁路由网关OPENWRT配置和常用服务" class="headerlink" title="我的旁路由网关OPENWRT配置和常用服务"></a>我的旁路由网关OPENWRT配置和常用服务</h1><blockquote>
+<p>我用N1做旁路由网关蛮久的了，做个备份常用的功能和服务配置。</p>
+</blockquote>
+<h2 id="N1做旁路由的配置"><a href="#N1做旁路由的配置" class="headerlink" title="N1做旁路由的配置"></a>N1做旁路由的配置</h2><p>参考<a href="https://blog.zjan.me/2024/03/13/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91-N1%E6%97%81%E8%B7%AF%E7%94%B1/">家庭网络拓扑-N1旁路由 | Dawnz Blog (zjan.me)</a></p>
+<h2 id="启用IPV6组网用于内网穿透"><a href="#启用IPV6组网用于内网穿透" class="headerlink" title="启用IPV6组网用于内网穿透"></a>启用IPV6组网用于内网穿透</h2><h3 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h3><p>网络：中国联通，IPV4-NAT1，公网IPV6</p>
+<p>主路由：TP-Link xdr 5480，固件为可以关闭防火墙的ipv6的固件，<a href="https://blog.zjan.me/2024/03/15/XDR5480%E5%BC%80%E5%90%AFipv6%E9%98%B2%E7%81%AB%E5%A2%99%E5%9B%BA%E4%BB%B6/">XDR5480开启ipv6防火墙固件 | Dawnz Blog (zjan.me)</a></p>
+<p>旁路由：斐讯N1</p>
+<h3 id="主路由开启ipv6"><a href="#主路由开启ipv6" class="headerlink" title="主路由开启ipv6"></a>主路由开启ipv6</h3><ol>
+<li>配置开启<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/bzvou3Jf6ySY1R7.png"
+                        alt="bzvou3Jf6ySY1R7.png"
+                 >​</li>
+<li>配置关闭防火墙<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/ikw5bNULHyQae9F.png"
+                        alt="ikw5bNULHyQae9F.png"
+                 >​</li>
+<li>配置局域网设置<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/JGD8HyxBl3f4aE1.png"
+                        alt="JGD8HyxBl3f4aE1.png"
+                 >​</li>
+</ol>
+<h3 id="旁路由OPENWRT配置"><a href="#旁路由OPENWRT配置" class="headerlink" title="旁路由OPENWRT配置"></a>旁路由OPENWRT配置</h3><ol>
+<li><p>配置ipv6接口<br> ​<code>网络</code>​-&gt;<code>接口</code>​-&gt;<code>添加新接口</code>​-名字任意（lan6）-协议为<code>dhcpv6</code>​-接口<code>@lan</code>​-防火墙<code>lan</code>​-&gt;保存并应用<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/PoMXc1FLvD3OtNr.png"
+                        alt="PoMXc1FLvD3OtNr.png"
+                 >​</p>
+</li>
+<li><p>配置防火墙规则<br> <strong>不知道为什么我的默认规则可以让所有IPV6入站，这很不安全，我们应该是让特定的端口入站，同时拒绝ipv6流量入站。</strong></p>
+<ul>
+<li>允许<code>51820/udp</code>​协议入站（wg端口）<br>​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/SwiFZs8c7PE6rTe.png"
+                        alt="SwiFZs8c7PE6rTe.png"
+                 >​</li>
+<li>拒绝所有IPV6入站<br>​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/UdQD3JVK9XhimtI.png"
+                        alt="UdQD3JVK9XhimtI.png"
+                 >​</li>
+</ul>
+</li>
+<li><p>ipv6 旁路由的问题<br> 我的ipv6主要就是用于内网穿透的，并不需要代理，旁路由的ipv6流量代理是有问题的，因为大多数设备不支持自定义ipv6网关和dns</p>
+</li>
+</ol>
+<h2 id="配置服务——动态域名DDNS-GO"><a href="#配置服务——动态域名DDNS-GO" class="headerlink" title="配置服务——动态域名DDNS-GO"></a>配置服务——动态域名DDNS-GO</h2><p>N1配置ddns-go的包为：<a class="link"   target="_blank" rel="noopener" href="https://github.com/sirpdboy/luci-app-ddns-go" >luci-app-ddns-go<i class="fas fa-external-link-alt"></i></a></p>
+<p>N1需要下载Releases中的3个包</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/sirpdboy/luci-app-ddns-go/releases/download/v6.7.0/ddns-go_6.7.0-1_aarch64_generic.ipk" >ddns-go_6.7.0-1_aarch64_generic.ipk<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/sirpdboy/luci-app-ddns-go/releases/download/v6.7.0/luci-app-ddns-go_1.4.5_all.ipk" >luci-app-ddns-go_1.4.5_all.ipk<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/sirpdboy/luci-app-ddns-go/releases/download/v6.7.0/luci-i18n-ddns-go-zh-cn_git-24.100.44971-c6c0236_all.ipk" >luci-i18n-ddns-go-zh-cn_git-24.100.44971-c6c0236_all.ipk<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<p>我的域名托管于cloudflare，所以直接使用了cf，简单配置如下</p>
+<ol>
+<li><p>创建个人token</p>
+</li>
+<li><p>ipv4 不启用</p>
+</li>
+<li><p>ipv6启用-&gt;通过网卡获取-@1-<ddns_domain><br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/IoWbjeAvUa1M7uF.png"
+                        alt="IoWbjeAvUa1M7uF.png"
+                 >​</p>
+</li>
+<li><h5 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h5><p> ​<code>telegram-bot</code>​<br> ​<code>Url</code>​：<a class="link"   target="_blank" rel="noopener" href="https://api.telegram.org/bot" >https://api.telegram.org/bot<i class="fas fa-external-link-alt"></i></a><bot_token>&#x2F;sendmessage<br> ​<code>Body</code>​:</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;chat_id&quot;</span>: <span class="string">&quot;&lt;chat_id&gt;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;text&quot;</span>: <span class="string">&quot;新的 IPv6 地址: #&#123;ipv6Addr&#125;\n影响域名: #&#123;ipv6Domains&#125;\n更新结果: #&#123;ipv6Result&#125;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配置服务——MihomoTproxy"><a href="#配置服务——MihomoTproxy" class="headerlink" title="配置服务——MihomoTproxy"></a>配置服务——MihomoTproxy</h2><blockquote>
+<p>Only support firewall4, it means your OpenWrt version needs to be 22.03 or above</p>
+</blockquote>
+<p>项目地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/morytyann/OpenWrt-mihomo" >OpenWrt-mihomo<i class="fas fa-external-link-alt"></i></a></p>
+<p>安装和更新：<code>curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/morytyann/OpenWrt-mihomo/main/install.sh | ash</code>​</p>
+<p>卸载：<code>curl -s -L https://mirror.ghproxy.com/https://raw.githubusercontent.com/morytyann/OpenWrt-mihomo/main/uninstall.sh | ash</code>​</p>
+<h3 id="配置服务——wireguard"><a href="#配置服务——wireguard" class="headerlink" title="配置服务——wireguard"></a>配置服务——wireguard</h3><p>网络-&gt;接口-&gt;添加接口-&gt;名称：wg0，协议：wireguard</p>
+<ol>
+<li><p>配置<br> 密钥：生成密钥对<br> 监听端口：默认即可或者改一下，如果改了记得防火墙放行端口</p>
+<p> IP地址：10.0.0.1&#x2F;24 (不能和局域网的网段相同)<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/wzaHldL9AfbCRXg.png"
+                        alt="wzaHldL9AfbCRXg.png"
+                 >​</p>
+</li>
+<li><p>防火墙设置<code>lan</code>​</p>
+</li>
+<li><p>添加对端<br> 生成配置用移动端扫描一下二维码添加通道<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/09/23/YXLv6xi5eZpgUJw.png"
+                        alt="YXLv6xi5eZpgUJw.png"
+                 >​</p>
+</li>
+<li><p>保存后应用，重启一下<code>wg0</code>​的接口<br> 注意每次添加、修改、删除peer，都需要重启接口。</p>
+</li>
+<li><p>移动端配置<br> 移动端需要修改一下配置，把对端配置改为<code>[ipv6地址]:port</code>​</p>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>配置了很久，旁路由没有想象中的那么好用，以后自己在家还是用主路由配置为好。</p>
+<p>‍</p>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                我的旁路由网关OPENWRT配置和常用服务
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                /post/my-bypass-gateway-openwrt-configuration-and-common-service-z26ifkr.html
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Janz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-09-23 16:39</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/openwrt/">openwrt</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/mihomo/">mihomo</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/N1/">N1</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E6%97%81%E8%B7%AF%E7%94%B1/">旁路由</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/wireguard/">wireguard</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/tproxy/">tproxy</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/post/use-restic-backup-n1-data-1y20cv.html"
+                                   title="利用restic备份N1数据"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">利用restic备份N1数据</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/post/openwrt-uses-tproxy-to-do-a-small-problem-for-transparent-proxy-1v43cl.html"
+                                   title="openwrt使用tproxy做透明代理的小问题"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">openwrt使用tproxy做透明代理的小问题</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//unpkg.com/twikoo@1.6.39/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.529213.xyz/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E6%97%81%E8%B7%AF%E7%94%B1%E7%BD%91%E5%85%B3OPENWRT%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-text">我的旁路由网关OPENWRT配置和常用服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#N1%E5%81%9A%E6%97%81%E8%B7%AF%E7%94%B1%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">N1做旁路由的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E7%94%A8IPV6%E7%BB%84%E7%BD%91%E7%94%A8%E4%BA%8E%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-text">启用IPV6组网用于内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6"><span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%B7%AF%E7%94%B1%E5%BC%80%E5%90%AFipv6"><span class="nav-text">主路由开启ipv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%81%E8%B7%AF%E7%94%B1OPENWRT%E9%85%8D%E7%BD%AE"><span class="nav-text">旁路由OPENWRT配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8DDDNS-GO"><span class="nav-text">配置服务——动态域名DDNS-GO</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhook"><span class="nav-text">Webhook</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94MihomoTproxy"><span class="nav-text">配置服务——MihomoTproxy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94wireguard"><span class="nav-text">配置服务——wireguard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-text">后记</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2018</span>&nbsp;-&nbsp;2025
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Janz</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E6%97%81%E8%B7%AF%E7%94%B1%E7%BD%91%E5%85%B3OPENWRT%E9%85%8D%E7%BD%AE%E5%92%8C%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-text">我的旁路由网关OPENWRT配置和常用服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#N1%E5%81%9A%E6%97%81%E8%B7%AF%E7%94%B1%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">N1做旁路由的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E7%94%A8IPV6%E7%BB%84%E7%BD%91%E7%94%A8%E4%BA%8E%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-text">启用IPV6组网用于内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6"><span class="nav-text">硬件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%B7%AF%E7%94%B1%E5%BC%80%E5%90%AFipv6"><span class="nav-text">主路由开启ipv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%81%E8%B7%AF%E7%94%B1OPENWRT%E9%85%8D%E7%BD%AE"><span class="nav-text">旁路由OPENWRT配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8DDDNS-GO"><span class="nav-text">配置服务——动态域名DDNS-GO</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Webhook"><span class="nav-text">Webhook</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94MihomoTproxy"><span class="nav-text">配置服务——MihomoTproxy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94wireguard"><span class="nav-text">配置服务——wireguard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-text">后记</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/utils.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/header-shrink.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/back2top.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/toggle-theme.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/code-block.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/main.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

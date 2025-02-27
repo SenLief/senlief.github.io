@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Do one thing at a time and do well.">
+    <meta name="author" content="Janz">
+    
+    <title>
+        
+            部署自己的网页chatgpt |
+        
+        Dawnz Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png">
+    
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.zjan.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Dawnz Blog","author":"Janz","avatar":"https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg","logo":"/images/logo.jpg","favicon":"https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","About":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"人生天地间，忽入远行客 || Do one thing at a time and do well.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/SenLief","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null,"email":"qqleap@gmail.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":null},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":false},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.529213.xyz/","region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"unpkg"},"pjax":{"enable":true},"footer":{"since":2018,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":false,"provider":"github","url":null},"shields_style":{"enable":false,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","version":"4.0.7"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Dawnz Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        部署自己的网页chatgpt
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Janz</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024-12-03 10:32:35</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Tue Dec 03 2024 12:02:10 GMT+0000">2024-12-03 12:02:10</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/uni-app/">uni-app</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/agents/">agents</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%81%94%E7%BD%91%E6%90%9C%E7%B4%A2/">联网搜索</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/openwebui/">openwebui</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/chatgpt/">chatgpt</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/LibreChat/">LibreChat</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <blockquote>
+<p>之前一直使用NextChat作为自己的Ai前端使用的，但是这个客户端最大的问题是不能同步记录，或者说同步很难用，所以使用自己的服务器部署了自己用也可以分享给朋友使用的LibreChat，它复刻了网页版的ChatGPT，同时新版本也带来了agents的功能来替代插件功能，使其拥有了更加灵活的能力。</p>
+</blockquote>
+<h2 id="部署内容"><a href="#部署内容" class="headerlink" title="部署内容"></a>部署内容</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/danny-avila/LibreChat" >LibreChat<i class="fas fa-external-link-alt"></i></a>——一个类似于网页版ChatGPT的web客户端</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Calcium-Ion/new-api" >New-Api<i class="fas fa-external-link-alt"></i></a>&#x2F;<a class="link"   target="_blank" rel="noopener" href="https://github.com/yym68686/uni-api" >Uni-Api<i class="fas fa-external-link-alt"></i></a>——中转代理api</li>
+<li>[可选]LibreChat Agents——让LibreChat实现联网搜索</li>
+</ul>
+<h2 id="Docker-Compose部署LibreChat"><a href="#Docker-Compose部署LibreChat" class="headerlink" title="Docker Compose部署LibreChat"></a>Docker Compose部署LibreChat</h2><ol>
+<li>克隆仓库</li>
+</ol>
+<p>​<code>$ git clone https://github.com/danny-avila/LibreChat.git &amp;&amp; cd LibreChat</code>​</p>
+<ol start="2">
+<li>复制<code>.env</code>​</li>
+</ol>
+<p>​<code>$ cp .env.example .env</code>​</p>
+<ol start="3">
+<li>(可选)配置<code>.env</code>​</li>
+</ol>
+<p>默认LibreChat已经有几种官方的模型，例如openai，Claude，Google等，如果使用的是官方的服务，那么可以不用配置<code>.env</code>​直接启动即可，我自己使用了第三方的api中转，所以需要配置一下环境变量，主要是两个变量<code>OPENAI_API_KEY</code>​和<code>OPENAI_REVERSE_PROXY</code>​注意<code>OPENAI_REVERSE_PROXY</code>​的值需要写到<code>/v1</code>​。</p>
+<ol start="4">
+<li>启动</li>
+</ol>
+<p>​<code>$ docker compose up -d</code>​</p>
+<ol start="5">
+<li>访问<code>http://localhost:3080/</code>​</li>
+</ol>
+<p>参考文档：<a class="link"   target="_blank" rel="noopener" href="https://www.librechat.ai/docs/local/docker" >www.librechat.ai/docs/local/docker<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="Uni-Api"><a href="#Uni-Api" class="headerlink" title="Uni-Api"></a>Uni-Api</h2><p>因为默认的LibreChat没有国内的大模型代理，配置起来比较麻烦，加上有一些模型没有的api请求地址和openai不同，所以出现了不少二次分发key的代理集合，可以把各家的模型接入到一起使用类openai的方式接入，只需要配置一处，即可以随处使用。我主要使用的有两个：</p>
+<ul>
+<li>New-Api：大而全的集合代理，带有统计系统，适合于运营</li>
+<li>Uni-Api：只有集合提供商的功能，没有其他的功能，非常的简介，甚至目前还没有前端，我目前使用的就是这个。</li>
+</ul>
+<ol>
+<li><p>compose.yml文件</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">uni-api:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">uniapi</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">yym68686/uni-api:latest</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">&#x27;0.0.0.0:8010:8000&#x27;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./api.yaml:/home/api.yaml</span> <span class="comment"># 如果已经设置 CONFIG_URL，不需要挂载配置文件</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./uniapi_db:/home/data</span> <span class="comment"># 如果不想保存统计数据，不需要挂载该文件夹</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>api.yaml文件<br> 官网有示例，我只配置了中转openai的代理和硅基流动，<a class="link"   target="_blank" rel="noopener" href="https://github.com/yym68686/uni-api/blob/main/README_CN.md#%E6%96%B9%E6%B3%95%E4%B8%80%E6%8C%82%E8%BD%BD-apiyaml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%AF%E5%8A%A8-uni-api" >官方配置详细示例<i class="fas fa-external-link-alt"></i></a>​<a href=""></a></p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">providers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">provider:</span> <span class="string">api</span> <span class="comment"># 服务提供商名称, 如 openai、anthropic、gemini、openrouter，随便取名字，必填</span></span><br><span class="line">    <span class="attr">base_url:</span> <span class="string">https://xxxxx/v1/chat/completions</span> <span class="comment"># 后端服务的API地址，必填</span></span><br><span class="line">    <span class="attr">api:</span> <span class="string">sk-Z1JMOZyECWvAkoPiE49dD221B59xxxxxxxxxxxx</span> <span class="comment"># 提供商的API Key，必填</span></span><br><span class="line">    <span class="comment"># model: # 选填，如果不配置 model，会自动通过 base_url 和 api 通过 /v1/models 端点获取可用的所有模型。</span></span><br><span class="line">    <span class="comment">#   - gpt-4o # 可以使用的模型名称，必填</span></span><br><span class="line">    <span class="comment">#   - claude-3-5-sonnet-20240620: claude-3-5-sonnet # 重命名模型，claude-3-5-sonnet-20240620 是服务商的模型名称，claude-3-5-sonnet 是重命名后的名字，可以使用简洁的名字代替原来复杂的名称，选填</span></span><br><span class="line">    <span class="comment">#   - dall-e-3</span></span><br><span class="line">    <span class="attr">tools:</span> <span class="literal">true</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">provider:</span> <span class="string">siliconflow</span></span><br><span class="line">    <span class="attr">base_url:</span> <span class="string">https://api.siliconflow.cn/v1/chat/completions</span></span><br><span class="line">    <span class="attr">api:</span> <span class="comment"># 支持多个 API Key，多个 key 自动开启轮训负载均衡，至少一个 key，必填</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">sk-jueqfzdklhewxkajbelgtxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">sk-sspwxmxmvoksgsqjuefnnxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></span><br><span class="line">    <span class="comment"># model:</span></span><br><span class="line">    <span class="comment">#   - Qwen/QwQ-32B-Preview</span></span><br><span class="line">    <span class="comment">#   - Qwen/Qwen2.5-Coder-32B-Instruct</span></span><br><span class="line">    <span class="comment">#   - claude-3-5-sonnet-20240620: claude-3-5-sonnet # 重命名模型，claude-3-5-sonnet-20240620 是服务商的模型名称，claude-3-5-sonnet 是重命名后的名字，可以使用简洁的名字代替原来复杂的名称，选填</span></span><br><span class="line">    <span class="comment"># tools: true # 是否支持工具，如生成代码、生成文档等，默认是 true，选填</span></span><br><span class="line"></span><br><span class="line"><span class="attr">api_keys:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">api:</span> <span class="string">sk-WifWIaIxCvS2dJc_hBQvFxxxxxxxxxxxxxxxxxxxxx</span> <span class="comment"># API Key，用户使用本服务需要 API key，必填</span></span><br><span class="line">    <span class="attr">model:</span> <span class="comment"># 该 API Key 可以使用的模型，必填。默认开启渠道级轮询负载均衡，每次请求模型按照 model 配置的顺序依次请求。与 providers 里面原始的渠道顺序无关。因此你可以设置每个 API key 请求顺序不一样。</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">api/*</span> <span class="comment"># 可以使用的模型名称，可以使用所有提供商提供的 gpt-4o 模型</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">siliconflow/*</span> <span class="comment"># 可以使用的模型名称，可以使用所有提供商提供的 claude-3-5-sonnet 模型</span></span><br><span class="line">      <span class="comment"># - gemini/* # 可以使用的模型名称，仅可以使用名为 gemini 提供商提供的所有模型，其中 gemini 是 provider 名称，* 代表所有模型</span></span><br><span class="line">    <span class="attr">role:</span> <span class="string">admin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">preferences:</span> <span class="comment"># 全局配置</span></span><br><span class="line">  <span class="attr">model_timeout:</span> <span class="comment"># 模型超时时间，单位为秒，默认 100 秒，选填</span></span><br><span class="line">    <span class="attr">gpt-4o:</span> <span class="number">10</span> <span class="comment"># 模型 gpt-4o 的超时时间为 10 秒,gpt-4o 是模型名称，当请求 gpt-4o-2024-08-06 等模型时，超时时间也是 10 秒</span></span><br><span class="line">    <span class="attr">claude-3-5-sonnet:</span> <span class="number">10</span> <span class="comment"># 模型 claude-3-5-sonnet 的超时时间为 10 秒，当请求 claude-3-5-sonnet-20240620 等模型时，超时时间也是 10 秒</span></span><br><span class="line">    <span class="attr">default:</span> <span class="number">10</span> <span class="comment"># 模型没有设置超时时间，使用默认的超时时间 10 秒，当请求的不在 model_timeout 里面的模型时，超时时间默认是 10 秒，不设置 default，uni-api 会使用 环境变量 TIMEOUT 设置的默认超时时间，默认超时时间是 100 秒</span></span><br><span class="line">    <span class="attr">o1-mini:</span> <span class="number">30</span> <span class="comment"># 模型 o1-mini 的超时时间为 30 秒，当请求名字是 o1-mini 开头的模型时，超时时间是 30 秒</span></span><br><span class="line">    <span class="attr">o1-preview:</span> <span class="number">100</span> <span class="comment"># 模型 o1-preview 的超时时间为 100 秒，当请求名字是 o1-preview 开头的模型时，超时时间是 100 秒</span></span><br><span class="line">  <span class="attr">cooldown_period:</span> <span class="number">300</span> <span class="comment"># 渠道冷却时间，单位为秒，默认 300 秒，选填。当模型请求失败时，会自动将该渠道排除冷却一段时间，不再请求该渠道，冷却时间结束后，会自动将该模型恢复，直到再次请求失败，会重新冷却。当 cooldown_period 设置为 0 时，不启用冷却机制。</span></span><br><span class="line">  <span class="attr">error_triggers:</span> <span class="comment"># 错误触发器，当模型返回的消息包含错误触发器中的任意一个字符串时，该渠道会自动返回报错。选填</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">The</span> <span class="string">bot&#x27;s</span> <span class="string">usage</span> <span class="string">is</span> <span class="string">covered</span> <span class="string">by</span> <span class="string">the</span> <span class="string">developer</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">process</span> <span class="string">this</span> <span class="string">request</span> <span class="string">due</span> <span class="string">to</span> <span class="string">overload</span> <span class="string">or</span> <span class="string">policy</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动<br> ​<code>$ docker compose up -d</code>​</p>
+</li>
+</ol>
+<h2 id="配置LibreChat使用自定义渠道"><a href="#配置LibreChat使用自定义渠道" class="headerlink" title="配置LibreChat使用自定义渠道"></a>配置LibreChat使用自定义渠道</h2><ol>
+<li><p>添加<code>docker-compose.override.yml</code>​内容如下</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">api:</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">bind</span></span><br><span class="line">      <span class="attr">source:</span> <span class="string">./librechat.yaml</span></span><br><span class="line">      <span class="attr">target:</span> <span class="string">/app/librechat.yaml</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加<code>librechat.yaml</code>​内容如下，注意备注修改</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">1.1</span><span class="number">.5</span></span><br><span class="line"><span class="attr">cache:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">endpoints:</span></span><br><span class="line">  <span class="attr">custom:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">&quot;Selfapi&quot;</span></span><br><span class="line">      <span class="attr">apiKey:</span> <span class="string">&quot;&quot;</span> <span class="comment"># 上面填写的api_keys中的api</span></span><br><span class="line">      <span class="attr">baseURL:</span> <span class="string">&quot;http://uniapi:8000/v1&quot;</span> <span class="comment"># uni-api的地址，如果用docker 桥接模式可以用容器名:端口的形式</span></span><br><span class="line">      <span class="attr">models:</span></span><br><span class="line">        <span class="attr">default:</span> [<span class="string">&quot;Qwen/QwQ-32B-Preview&quot;</span>, <span class="string">&quot;Qwen/Qwen2.5-Coder-32B-Instruct&quot;</span>, <span class="string">&quot;o1-mini&quot;</span>, <span class="string">&quot;o1-preview&quot;</span>, <span class="string">&quot;gpt-4o-mini&quot;</span>, <span class="string">&quot;gpt-4o&quot;</span>, <span class="string">&quot;claude-3-5-sonnet&quot;</span>, <span class="string">&quot;command-r-plus&quot;</span>]</span><br><span class="line">        <span class="attr">fetch:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">titleConvo:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">titleModel:</span> <span class="string">&quot;QwQ-32B-Preview&quot;</span></span><br><span class="line">      <span class="attr">summarize:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">summaryModel:</span> <span class="string">&quot;QwQ-32B-Preview&quot;</span></span><br><span class="line">      <span class="attr">forcePrompt:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">modelDisplayLabel:</span> <span class="string">&quot;Selfapi&quot;</span></span><br><span class="line">      <span class="attr">dropParams:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&quot;stop&quot;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&quot;user&quot;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&quot;presence_penalty&quot;</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&quot;frequency_penalty&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>参考文档：<a class="link"   target="_blank" rel="noopener" href="https://www.librechat.ai/docs/configuration/librechat_yaml" >librechat.yaml配置<i class="fas fa-external-link-alt"></i></a></p>
+<ol start="3">
+<li>重启LibreChat即可</li>
+</ol>
+<h2 id="配置Agents使LibreChat支持联网搜索"><a href="#配置Agents使LibreChat支持联网搜索" class="headerlink" title="配置Agents使LibreChat支持联网搜索"></a>配置Agents使LibreChat支持联网搜索</h2><p>​<code>agents</code>​必然是Librechat的一大杀器，继承于插件，容易配置。</p>
+<ol>
+<li><p>配置<code>.env</code>​启用agents<br> 添加<code>EXPERIMENTAL_AGENTS=true</code>​到<code>.env</code>​文件</p>
+</li>
+<li><p>申请google search key<br> <a class="link"   target="_blank" rel="noopener" href="https://programmablesearchengine.google.com/controlpanel/all" >申请地址<i class="fas fa-external-link-alt"></i></a>，需要拿到引擎id和json的api key</p>
+</li>
+<li><p>把google申请的添加到<code>.env</code>​配置文件</p>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">GOOGLE_SEARCH_API_KEY</span>=<span class="string">&quot;&quot;</span> <span class="comment">#json api key</span></span><br><span class="line"><span class="attr">GOOGLE_CSE_ID</span>=<span class="string">&quot;&quot;</span> 引擎id</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置agents<br> ​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/12/03/M1ZlGLpoJB9NbYQ.png"
+                        alt="M1ZlGLpoJB9NbYQ.png"
+                 >​<br> <img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/12/03/kdmoAZb6x4uCgV8.png"
+                        alt="kdmoAZb6x4uCgV8.png"
+                 >​​<img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2024/12/03/taZxfAlIL5ebnWK.png"
+                        alt="taZxfAlIL5ebnWK.png"
+                 >​</p>
+</li>
+<li><p>提供的模型中需要支持函数调用，另外需要搭配一些prompt才好。</p>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>Ai还是需要有一个好的Prompt才好用的。</p>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                部署自己的网页chatgpt
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                /post/deploy-your-own-web-page-chatgpt-zixsdg.html
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Janz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-12-03 10:32</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/uni-app/">uni-app</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/agents/">agents</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/%E8%81%94%E7%BD%91%E6%90%9C%E7%B4%A2/">联网搜索</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/openwebui/">openwebui</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/chatgpt/">chatgpt</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/LibreChat/">LibreChat</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/02/27/Obsidian%E5%88%A9%E7%94%A8Syncthing%E5%85%A8%E5%B9%B3%E5%8F%B0%E5%90%8C%E6%AD%A5%E7%BB%88%E6%9E%81%E6%96%B9%E6%A1%88/"
+                                   title="Obsidian利用Syncthing全平台同步终极方案"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Obsidian利用Syncthing全平台同步终极方案</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/post/haproxy-uses-tcp-and-http-protocols-on-port-443-jhkgj.html"
+                                   title="Haproxy同时在443端口上使用tcp和http协议"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Haproxy同时在443端口上使用tcp和http协议</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//unpkg.com/twikoo@1.6.39/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.529213.xyz/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%86%85%E5%AE%B9"><span class="nav-text">部署内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Compose%E9%83%A8%E7%BD%B2LibreChat"><span class="nav-text">Docker Compose部署LibreChat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uni-Api"><span class="nav-text">Uni-Api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AELibreChat%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%A0%E9%81%93"><span class="nav-text">配置LibreChat使用自定义渠道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEAgents%E4%BD%BFLibreChat%E6%94%AF%E6%8C%81%E8%81%94%E7%BD%91%E6%90%9C%E7%B4%A2"><span class="nav-text">配置Agents使LibreChat支持联网搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-text">后记</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2018</span>&nbsp;-&nbsp;2025
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Janz</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%86%85%E5%AE%B9"><span class="nav-text">部署内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Compose%E9%83%A8%E7%BD%B2LibreChat"><span class="nav-text">Docker Compose部署LibreChat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uni-Api"><span class="nav-text">Uni-Api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AELibreChat%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%A0%E9%81%93"><span class="nav-text">配置LibreChat使用自定义渠道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEAgents%E4%BD%BFLibreChat%E6%94%AF%E6%8C%81%E8%81%94%E7%BD%91%E6%90%9C%E7%B4%A2"><span class="nav-text">配置Agents使LibreChat支持联网搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-text">后记</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/utils.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/header-shrink.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/back2top.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/toggle-theme.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/code-block.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/main.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
