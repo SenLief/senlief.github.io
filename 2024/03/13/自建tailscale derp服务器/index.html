@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Do one thing at a time and do well.">
+    <meta name="author" content="Janz">
+    
+    <title>
+        
+            自建tailscale derp服务器 |
+        
+        Dawnz Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png">
+    
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.zjan.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Dawnz Blog","author":"Janz","avatar":"https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg","logo":"/images/logo.jpg","favicon":"https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","About":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"人生天地间，忽入远行客 || Do one thing at a time and do well.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/SenLief","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null,"email":"qqleap@gmail.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":null},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":false},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.529213.xyz/","region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"unpkg"},"pjax":{"enable":true},"footer":{"since":2018,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":false,"provider":"github","url":null},"shields_style":{"enable":false,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","version":"4.0.7"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Dawnz Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+                <div class="post-content-top border-box"
+                     style="height: 13.8rem"
+                >
+                    <div class="cover-post-title">
+                        自建tailscale derp服务器
+                    </div>
+                    <img class="post-cover" src="https://cdn.sa.net/2024/03/13/7tLu5xW3iCSBJlG.webp"
+                         onerror="this.style.display='none'"
+                    >
+                </div>
+            
+
+            <div class="post-content-bottom border-box has-cover">
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Janz</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024-03-13 21:19:58</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Thu Mar 13 2025 17:32:49 GMT+0000">2025-03-13 17:32:49</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/wireguard/">wireguard</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/tailscale/">tailscale</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/tailscale-derp/">tailscale-derp</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/headscale/">headscale</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+                        <div class="post-aging-tips"
+                             data-update-date="Thu Mar 13 2025 17:32:49 GMT+0000"
+                             data-aging-days="30"
+                        >
+                            <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
+                        </div>
+                    
+
+                    <h2 id="文章转载"><a href="#文章转载" class="headerlink" title="文章转载"></a>文章转载</h2><p><a class="link"   target="_blank" rel="noopener" href="https://kiprey.github.io/2023/11/tailscale-derp/" >浅探 Tailscale DERP 中转服务 | Kiprey’s Blog<i class="fas fa-external-link-alt"></i></a><br>本篇主要是记录一下配置derp的过程，基本上所有的内容都是来源于上面的文章，有需要的可以直接查阅上面的文章，写的非常好，过程剖析的很到位，吾辈楷模！</p>
+<h2 id="配置要求"><a href="#配置要求" class="headerlink" title="配置要求"></a>配置要求</h2><ul>
+<li>公网ip</li>
+<li>允许tcp&#x2F;udp进站</li>
+</ul>
+<h2 id="配置derp服务器"><a href="#配置derp服务器" class="headerlink" title="配置derp服务器"></a>配置derp服务器</h2><h3 id="安装golang"><a href="#安装golang" class="headerlink" title="安装golang"></a>安装golang</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要最新版的golang</span></span><br><span class="line">$ wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz</span><br><span class="line">$ sudo <span class="built_in">rm</span> -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz</span><br><span class="line">$ <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/local/go/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证安装版本</span></span><br><span class="line">$ go version</span><br><span class="line"><span class="comment"># 配置代理以便于国内vps下载,国外vps不需要配置</span></span><br><span class="line">$ go <span class="built_in">env</span> -w GOPROXY=https://goproxy.cn,direct</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装tailscale-derper</span></span><br><span class="line">$ go install tailscale.com/cmd/derper@latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置Derp服务并用systemd管理"><a href="#配置Derp服务并用systemd管理" class="headerlink" title="配置Derp服务并用systemd管理"></a>配置Derp服务并用systemd管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置环境变量</span></span><br><span class="line">$ DERP_HOST=<span class="string">&quot;dawnz-derp&quot;</span> <span class="comment">#这个名字随意，但需要记住后面自签名证书和derpMap需要用  </span></span><br><span class="line">$ DERP_PORT=8888  </span><br><span class="line">$ STUN_PORT=8889</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自签名证书</span></span><br><span class="line">$ <span class="built_in">mkdir</span> ~/.certdir &amp;&amp; <span class="built_in">cd</span> ~/.certdir</span><br><span class="line">$ openssl genpkey -algorithm RSA -out <span class="variable">$&#123;DERP_HOST&#125;</span>.key     </span><br><span class="line">$ openssl req -new -key <span class="variable">$&#123;DERP_HOST&#125;</span>.key -out <span class="variable">$&#123;DERP_HOST&#125;</span>.csr  </span><br><span class="line">$ openssl x509 -req \  </span><br><span class="line">		-days 36500 \  </span><br><span class="line">		-<span class="keyword">in</span> <span class="variable">$&#123;DERP_HOST&#125;</span>.csr \  </span><br><span class="line">		-signkey <span class="variable">$&#123;DERP_HOST&#125;</span>.key \  </span><br><span class="line">		-out <span class="variable">$&#123;DERP_HOST&#125;</span>.crt \  </span><br><span class="line">		-extfile &lt;(<span class="built_in">printf</span> <span class="string">&quot;subjectAltName=DNS:<span class="variable">$&#123;DERP_HOST&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用systemd service启动derp服务</span></span><br><span class="line"><span class="comment">## 1. 如果derp是公用的可以直接启动derp服务即可，但是这样如果别人知道你的ip和port，那么其他人也可以连接，使用你中转服务器的流量。</span></span><br><span class="line"><span class="comment">## 2. 如果配置derp为私有服务器，则需要把中转服务器也作为一个节点，安装tailscaled登录认证，并在启用derp服务时使用 --verify-clients</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装tailscaled 并登录验证</span></span><br><span class="line">$ curl -fsSL https://tailscale.com/install.sh | sh</span><br><span class="line">$ sudo tailscale up</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建tailscale-derp.service</span></span><br><span class="line">$ sudo systemctl edit -f tailscale-derp.service</span><br><span class="line"><span class="comment"># 粘贴如下内容</span></span><br><span class="line">-----------</span><br><span class="line">[Unit]  </span><br><span class="line">Description=Tailscale derp service  </span><br><span class="line">After=network.target  </span><br><span class="line">  </span><br><span class="line">[Service]  </span><br><span class="line">ExecStart=/home/<span class="variable">$&#123;USER&#125;</span>/go/bin/derper \  </span><br><span class="line">    -c /home/<span class="variable">$&#123;USER&#125;</span>/.derper.key \  </span><br><span class="line">    -a :<span class="variable">$&#123;DERP_PORT&#125;</span> -http-port -1 \  </span><br><span class="line">    -stun-port <span class="variable">$&#123;STUN_PORT&#125;</span> \  </span><br><span class="line">    -hostname <span class="variable">$&#123;DERP_HOST&#125;</span> \  </span><br><span class="line">    --certmode manual \  </span><br><span class="line">    -certdir /home/<span class="variable">$&#123;USER&#125;</span>/.certdir \  </span><br><span class="line">    --verify-clients  </span><br><span class="line">Restart=always  </span><br><span class="line">User=<span class="variable">$&#123;USER&#125;</span>  </span><br><span class="line">  </span><br><span class="line">[Install]  </span><br><span class="line">WantedBy=multi-user.target<span class="string">&quot; </span></span><br><span class="line"><span class="string">------------</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 启动服务</span></span><br><span class="line"><span class="string">$ sudo systemctl start tailscale-derp.service</span></span><br><span class="line"><span class="string"># 查看状态</span></span><br><span class="line"><span class="string">$ sudo systemctl status tailscale-derp.service</span></span><br><span class="line"><span class="string"># 开机自启动</span></span><br><span class="line"><span class="string">$ sudo systemctl enable tailscale-derp.service</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置iptables允许端口流量入站并配置安全组"><a href="#配置iptables允许端口流量入站并配置安全组" class="headerlink" title="配置iptables允许端口流量入站并配置安全组"></a>配置iptables允许端口流量入站并配置安全组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iptables 配置8888/tcp，8889/udp允许入站</span></span><br><span class="line">$ sudo iptables -A INPUT -p tcp --dport 8888 -j ACCEPT</span><br><span class="line">$ sudo iptables -A INPUT -p udp --dport 8888 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有些云服务商需要配置安全组，在网页控制台安全组也要配置这两个入站。</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置ACL"><a href="#配置ACL" class="headerlink" title="配置ACL"></a>配置ACL</h3><p><a class="link"   target="_blank" rel="noopener" href="https://login.tailscale.com/admin" >Tailscale<i class="fas fa-external-link-alt"></i></a>登录管理控制台，选择<code>Access Controls</code></p>
+<ol>
+<li>添加单个中转服务器<br><strong>注意：HostName配置和上面的DERP_HOST配置的要相同</strong><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">...  </span><br><span class="line"><span class="punctuation">&#123;</span>  </span><br><span class="line">	...  </span><br><span class="line">	<span class="attr">&quot;acls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>...<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">	...  </span><br><span class="line">	<span class="attr">&quot;ssh&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>...<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">  ...  </span><br><span class="line">	<span class="attr">&quot;derpMap&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">		<span class="attr">&quot;Regions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">			<span class="attr">&quot;900&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">				<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>   <span class="number">900</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="attr">&quot;RegionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dawnz1&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="attr">&quot;Nodes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>  </span><br><span class="line">					<span class="punctuation">&#123;</span>  </span><br><span class="line">						<span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;dawnz-derp1&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>         <span class="number">900</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;HostName&quot;</span><span class="punctuation">:</span>         <span class="string">&quot;dawnz-derp&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;IPv4&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;xx.xx.xx.xx&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;DERPPort&quot;</span><span class="punctuation">:</span>         <span class="number">8888</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;STUNPort&quot;</span><span class="punctuation">:</span>         <span class="number">8889</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;InsecureForTests&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>  </span><br><span class="line">					<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">			<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">		<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">	<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">  ...  </span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>添加多个中转服务器<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">...  </span><br><span class="line"><span class="punctuation">&#123;</span>  </span><br><span class="line">	...  </span><br><span class="line">	<span class="attr">&quot;acls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>...<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">	...  </span><br><span class="line">	<span class="attr">&quot;ssh&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>...<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">  ...  </span><br><span class="line">	<span class="attr">&quot;derpMap&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">		<span class="attr">&quot;OmitDefaultRegions&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;Regions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">			<span class="attr">&quot;900&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>  </span><br><span class="line">				<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>   <span class="number">900</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="attr">&quot;RegionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dawnz1&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="attr">&quot;Nodes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>  </span><br><span class="line">					<span class="punctuation">&#123;</span>  </span><br><span class="line">						<span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;dawnz-derp1&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>         <span class="number">900</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;HostName&quot;</span><span class="punctuation">:</span>         <span class="string">&quot;dawnz-derp&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;IPv4&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;xx.xx.xx.xx&quot;</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;DERPPort&quot;</span><span class="punctuation">:</span>         <span class="number">8888</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;STUNPort&quot;</span><span class="punctuation">:</span>         <span class="number">8889</span><span class="punctuation">,</span>  </span><br><span class="line">						<span class="attr">&quot;InsecureForTests&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>  </span><br><span class="line">					<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">				<span class="punctuation">]</span><span class="punctuation">,</span>  </span><br><span class="line">			<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">			<span class="attr">&quot;901&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">				<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>   <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">				<span class="attr">&quot;RegionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dawnz2&quot;</span><span class="punctuation">,</span></span><br><span class="line">				<span class="attr">&quot;Nodes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">					<span class="punctuation">&#123;</span></span><br><span class="line">						<span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;Dawnz-derp2&quot;</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;RegionID&quot;</span><span class="punctuation">:</span>         <span class="number">901</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;HostName&quot;</span><span class="punctuation">:</span>         <span class="string">&quot;danwz-derp2&quot;</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;IPv4&quot;</span><span class="punctuation">:</span>             <span class="string">&quot;xx.xx.xx.xx&quot;</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;DERPPort&quot;</span><span class="punctuation">:</span>         <span class="number">8888</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;STUNPort&quot;</span><span class="punctuation">:</span>         <span class="number">8889</span><span class="punctuation">,</span></span><br><span class="line">						<span class="attr">&quot;InsecureForTests&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">					<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">				<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">			<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">	<span class="punctuation">&#125;</span><span class="punctuation">,</span>  </span><br><span class="line">  ...  </span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="检查中转服务器的状态"><a href="#检查中转服务器的状态" class="headerlink" title="检查中转服务器的状态"></a>检查中转服务器的状态</h3><ol>
+<li>任意一台节点上利用<code>$ tailscale netcheck</code> 命令即可查看derp上线情况，有看到延迟即配置完成。</li>
+<li>因为公用服务器延迟很大，我不想用公用服务器，可以配置<code>&quot;OmitDefaultRegions&quot;: true,</code> 看上节的多个derp配置即可</li>
+</ol>
+<h2 id="Enjoy"><a href="#Enjoy" class="headerlink" title="Enjoy!"></a>Enjoy!</h2><p>tailscale的组网能力是真的可以呀，各方面都非常的完全和健壮，免费基本够个人使用了，非常的Nice！<br>唯一的问题是我用电信5g的手机打洞回家600m的联通宽带，测速的上限一直是50m的带宽，不知道是不是udp限制了，不过也足够使用了。</p>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                自建tailscale derp服务器
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2024/03/13/自建tailscale derp服务器/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Janz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-03-13 21:19</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/wireguard/">wireguard</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/tailscale/">tailscale</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/tailscale-derp/">tailscale-derp</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/headscale/">headscale</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2024/03/13/tailscale%E5%B1%80%E5%9F%9F%E7%BD%91%E7%BB%84%E7%BD%91/"
+                                   title="tailscale局域网组网"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">tailscale局域网组网</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2024/03/11/%E5%88%A9%E7%94%A8Templater%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA%E5%8F%8C%E9%93%BE%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E7%B1%BB%E4%BD%8D%E7%BD%AE/"
+                                   title="利用Templater插件实现创建双链文件的分类位置"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">利用Templater插件实现创建双链文件的分类位置</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//unpkg.com/twikoo@1.6.39/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.529213.xyz/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E8%BD%AC%E8%BD%BD"><span class="nav-text">文章转载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%A6%81%E6%B1%82"><span class="nav-text">配置要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEderp%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置derp服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85golang"><span class="nav-text">安装golang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEDerp%E6%9C%8D%E5%8A%A1%E5%B9%B6%E7%94%A8systemd%E7%AE%A1%E7%90%86"><span class="nav-text">配置Derp服务并用systemd管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEiptables%E5%85%81%E8%AE%B8%E7%AB%AF%E5%8F%A3%E6%B5%81%E9%87%8F%E5%85%A5%E7%AB%99%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84"><span class="nav-text">配置iptables允许端口流量入站并配置安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEACL"><span class="nav-text">配置ACL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">检查中转服务器的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enjoy"><span class="nav-text">Enjoy!</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2018</span>&nbsp;-&nbsp;2025
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Janz</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E8%BD%AC%E8%BD%BD"><span class="nav-text">文章转载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%A6%81%E6%B1%82"><span class="nav-text">配置要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEderp%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">配置derp服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85golang"><span class="nav-text">安装golang</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEDerp%E6%9C%8D%E5%8A%A1%E5%B9%B6%E7%94%A8systemd%E7%AE%A1%E7%90%86"><span class="nav-text">配置Derp服务并用systemd管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEiptables%E5%85%81%E8%AE%B8%E7%AB%AF%E5%8F%A3%E6%B5%81%E9%87%8F%E5%85%A5%E7%AB%99%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84"><span class="nav-text">配置iptables允许端口流量入站并配置安全组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEACL"><span class="nav-text">配置ACL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">检查中转服务器的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enjoy"><span class="nav-text">Enjoy!</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/utils.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/header-shrink.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/back2top.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/toggle-theme.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/code-block.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/main.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

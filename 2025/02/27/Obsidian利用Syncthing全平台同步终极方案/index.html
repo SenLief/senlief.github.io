@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Do one thing at a time and do well.">
+    <meta name="author" content="Janz">
+    
+    <title>
+        
+            Obsidian利用Syncthing全平台同步终极方案 |
+        
+        Dawnz Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png">
+    
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-keep@4.0.7/source/font/css/brands.min.css">
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"blog.zjan.me","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Dawnz Blog","author":"Janz","avatar":"https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg","logo":"/images/logo.jpg","favicon":"https://vip2.loli.io/2023/11/23/yvBA2YpmgEix8LM.png"},"menu":{"Archives":"/archives","Tags":"/tags","Categories":"/categories","About":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"人生天地间，忽入远行客 || Do one thing at a time and do well.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/SenLief","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null,"email":"qqleap@gmail.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"category":true,"tag":true,"announcement":null},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":false},"comment":{"enable":true,"use":"twikoo","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.529213.xyz/","region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"unpkg"},"pjax":{"enable":true},"footer":{"since":2018,"word_count":true,"icp":{"enable":false,"record_code":null,"url":"https://beian.miit.gov.cn"},"site_deploy":{"enable":false,"provider":"github","url":null},"shields_style":{"enable":false,"custom":[{"link_url":null,"img_url":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","version":"4.0.7"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Dawnz Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a class=""
+                           href="/"
+                        >首页</a>
+                    </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >归档</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >标签</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >分类</a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >关于</a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            <li class="drawer-menu-item flex-center">
+                <a class=""
+                   href="/"
+                >首页</a>
+            </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags"
+                    >标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+                <div class="post-content-top border-box"
+                     style="height: 13.8rem"
+                >
+                    <div class="cover-post-title">
+                        Obsidian利用Syncthing全平台同步终极方案
+                    </div>
+                    <img class="post-cover" src="https://cdn.sa.net/2025/02/27/8Ccz9huOgWtRIoZ.webp"
+                         onerror="this.style.display='none'"
+                    >
+                </div>
+            
+
+            <div class="post-content-bottom border-box has-cover">
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://vip2.loli.io/2023/11/23/Tr1xnhyDVPaRsfW.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Janz</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-02-27 15:48:14</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Thu Mar 13 2025 17:32:49 GMT+0000">2025-03-13 17:32:49</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Blog/">Blog</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/syncthing/">syncthing</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/synctrain/">synctrain</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+                        <div class="post-aging-tips"
+                             data-update-date="Thu Mar 13 2025 17:32:49 GMT+0000"
+                             data-aging-days="30"
+                        >
+                            <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
+                        </div>
+                    
+
+                    <blockquote>
+<p>或许这就是最好的Obsidian全平台同步方案，甚至在国内可能优于官方的同步，因为它的同步速度取决于你内网带宽！并且它不局限于同步Obsidian，也可以同步其他基于文件的的资料或者照片以及视频。</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Obsidian的同步最大的问题是IOS端，在桌面端我们可以利用OneDrive，Dropbox等工具来同步，但是在IOS端我们无法使用这些工具来同步其他app的数据，所以如果不使用官方的同步，我们只能依赖插件，例如<code>remotely-save</code>和<code>live-sync</code> 或者基于<code>git</code>的http插件以及<code>working copy</code> 来同步文件，这些插件的最大问题就是性能和对冲突的处理策略不友好，那么<code>syncthing</code>便是终极的同步方案！</p>
+<p><code>Syncthing</code> 一个几乎实时的Obsidian同步方案，某些方面，它甚至优于官方同步。</p>
+<h2 id="Syncthing的介绍"><a href="#Syncthing的介绍" class="headerlink" title="Syncthing的介绍"></a>Syncthing的介绍</h2><p>以下来自[官网][<a class="link"   target="_blank" rel="noopener" href="https://syncthing.net/]" >https://syncthing.net/]<i class="fas fa-external-link-alt"></i></a></p>
+<blockquote>
+<p>Syncthing is a <strong>continuous file synchronization</strong> program. It synchronizes files between two or more computers in real time, safely protected from prying eyes. Your data is your data alone and you deserve to choose where it is stored, whether it is shared with some third party, and how it’s transmitted over the internet.</p>
+</blockquote>
+<p>总结来说：syncthing是一个开源的多端p2p同步工具。</p>
+<h2 id="Syncthing的安装"><a href="#Syncthing的安装" class="headerlink" title="Syncthing的安装"></a>Syncthing的安装</h2><p>桌面端的下载地址：[官网下载][<a class="link"   target="_blank" rel="noopener" href="https://syncthing.net/downloads/]" >https://syncthing.net/downloads/]<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="Windows端"><a href="#Windows端" class="headerlink" title="Windows端"></a>Windows端</h3><p>windows端有2类客户端，一类是基于命令行+web端ui的客户端，一类是集成ui客户端，两种都是一样的。</p>
+<h4 id="集成UI客户端"><a href="#集成UI客户端" class="headerlink" title="集成UI客户端"></a>集成UI客户端</h4><p>[SyncTrayzor下载地址][<a class="link"   target="_blank" rel="noopener" href="https://github.com/canton7/SyncTrayzor]" >https://github.com/canton7/SyncTrayzor]<i class="fas fa-external-link-alt"></i></a></p>
+<h4 id="基于WebUI的Base客户端"><a href="#基于WebUI的Base客户端" class="headerlink" title="基于WebUI的Base客户端"></a>基于WebUI的Base客户端</h4><p>建议下载安装版[Windows安装版][<a class="link"   target="_blank" rel="noopener" href="https://github.com/Bill-Stewart/SyncthingWindowsSetup/]" >https://github.com/Bill-Stewart/SyncthingWindowsSetup/]<i class="fas fa-external-link-alt"></i></a><br>运行：开启菜单中搜索<code>syncthing</code>，找到<code>Start Syncthing</code>打开即运行，没有窗口，没有托盘，这时我们打开浏览器，输入<code>http://127.0.0.1:8384</code>即可管理<a href="Syncthing.md">Syncthing</a>。<br>注意：安装版无法开机自启动，你可以安装以下步骤设置自启动。</p>
+<ol>
+<li>资源管理器打开<code>%APPDATA%\Microsoft\Windows\Start Menu\Programs\Syncthing</code> 复制<code>Start Syncthing</code>这个快捷方式</li>
+<li><code>win+R</code>输入<code>shell:startup</code>打开自启动文件夹</li>
+<li>把快捷方式粘贴到自启动文件夹中，下次开机会自动启动syncthing<br>你也可以记住这个文件夹的位置，或者把<code>Start Syncthing</code>和<code>Stop Syncthing</code>快捷方式复制到桌面用于手动启动和关闭，也可以从开始菜单启停。</li>
+</ol>
+<h3 id="iPhone和iPad端"><a href="#iPhone和iPad端" class="headerlink" title="iPhone和iPad端"></a>iPhone和iPad端</h3><blockquote>
+<p>iPhone上一直没有一个友好的syncthing客户端，主要是无法跨沙箱，也就无法同步文件夹，这确实非常的难受，使用起来很受限，之前一直使用<code>mobius sync</code>这个收费的客户端，它能跨沙箱，但是如果体验后就必须保持后台，使用体验不算很好。直到开源的<code>Synctrain</code>的出现让IOS上的同步体验达到几乎无感。</p>
+</blockquote>
+<h4 id="Synctrain"><a href="#Synctrain" class="headerlink" title="Synctrain"></a>Synctrain</h4><p>[Github项目][<a class="link"   target="_blank" rel="noopener" href="https://github.com/pixelspark/sushitrain]" >https://github.com/pixelspark/sushitrain]<i class="fas fa-external-link-alt"></i></a><br>App Store：[Download on the App Store][<a class="link"   target="_blank" rel="noopener" href="https://apps.apple.com/nl/app/synctrain/id6553985316]" >https://apps.apple.com/nl/app/synctrain/id6553985316]<i class="fas fa-external-link-alt"></i></a> (非美区)<br>TF：[Test beta versions through TestFlight][<a class="link"   target="_blank" rel="noopener" href="https://testflight.apple.com/join/2f54I4CM]" >https://testflight.apple.com/join/2f54I4CM]<i class="fas fa-external-link-alt"></i></a></p>
+<h4 id="Mobius-Sync"><a href="#Mobius-Sync" class="headerlink" title="Mobius Sync"></a>Mobius Sync</h4><p>App Store下载，国区38元买断，也很不错的app。</p>
+<p><strong>两个app最大的区别在于能否用快捷方式！</strong></p>
+<h2 id="Syncthing配置（仅演示局域网下的同步）"><a href="#Syncthing配置（仅演示局域网下的同步）" class="headerlink" title="Syncthing配置（仅演示局域网下的同步）"></a>Syncthing配置（仅演示局域网下的同步）</h2><p>以Windows端和iPhone同步为例，其他设备加入大同小异，但syncthing的中继和发现以及stun服务不友好，谨慎使用！</p>
+<ol>
+<li>在2端添加远程设备<ol>
+<li>windows浏览器打开<code>http://127.0.0.1:8384</code>，右上角<code>操作</code>&gt;<code>显示ID</code> 会显示出来二维码。</li>
+<li>IOS端<code>Devices</code>&gt;<code>Add device</code> &gt; <code>Scan using camera</code> 扫描二维码，右上角<code>Add</code>添加设备</li>
+<li>如果正常，浏览器会收到一条添加设备的通知，点击<code>添加设备</code>即可连接设备</li>
+</ol>
+</li>
+<li>在2端添加共享文件夹<code>Obsidian</code><ol>
+<li>浏览器<code>+添加文件夹</code><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2025/02/27/mQqgnbcvoIS2HJX.png"
+                        alt="mQqgnbcvoIS2HJX.png"
+                 ></li>
+<li>Obsidian文件夹点击，然后<code>编辑</code>,选择共享文件夹。<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2025/02/27/M4QCzNsIglXK2u1.png"
+                        alt="M4QCzNsIglXK2u1.png"
+                 ></li>
+<li>iPhone打开<code>文件</code>app，在<code>我的iPhone</code>&gt;<code>Obsidian</code> 中新建一个<code>Obsidian</code>的文件夹用于保存<a href="obsidian.md">obsidian</a>的数据 </li>
+<li>iPhone端<code>Folders</code>中会显示发现了共享的<code>Obsidian</code>，选择<code>Select existing filder</code> &gt; 第3步中新建的Obsidian文件夹，显示警告选择继续即可，<code>Synchronize</code>选择<code>All files</code>，点击右上角<code>Add folder</code></li>
+<li><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2025/02/27/IPkCV2jpyTnYuz6.png"
+                        alt="IPkCV2jpyTnYuz6.png"
+                 ></li>
+</ol>
+</li>
+<li>配置Over，你可以在同步的文件任意的添加一些文件看看同步的情况如何</li>
+<li>配置自动化流程（灵魂）<ol>
+<li>新建一个快捷指令添加以下2个<code>Synctrain</code>动作即可<ul>
+<li><code>Rescan folder</code>: <code>Folder</code>选择上面的<code>Obsidian</code>文件夹，<code>Subdirectory</code>留空</li>
+<li><code>Synchronize for a while</code>：<code>Time</code>填写<code>15</code></li>
+<li><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2025/02/27/VlY5yCrzBLu8ZiA.png"
+                        alt="VlY5yCrzBLu8ZiA.png"
+                 ></li>
+</ul>
+</li>
+<li>打开自动化，新建一个自动化流程<ul>
+<li><code>App</code>选择Obsidian，<code>已打开</code>和<code>已关闭</code> 全部勾选，点击立即运行</li>
+<li>下一步选择刚才创建的快捷指令</li>
+<li>完美自动化！</li>
+<li><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.sa.net/2025/02/27/fxhlr9bGnvHjB7J.png"
+                        alt="fxhlr9bGnvHjB7J.png"
+                 ></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>自动化流程就是打开app同步一次，关闭app同步一次，如果你怕同步不成功，手动打开Synctrain看一下是否同步即可。</li>
+</ul>
+<h2 id="Show-Time"><a href="#Show-Time" class="headerlink" title="Show Time"></a>Show Time</h2><p>没录</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>用了2天感觉体验还是相当不错的，不过只适合于个人使用，而且最好不要同时编辑两端，它不会比对文件，只会创建冲突文件。<br>syncthing是有版本控制的，以及syncthing的公共中继有些问题，这些等进阶篇再写了。</p>
+
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Obsidian利用Syncthing全平台同步终极方案
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/02/27/Obsidian利用Syncthing全平台同步终极方案/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Janz</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-02-27 15:48</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">
+                        <i class="fa-brands fa-creative-commons"></i>
+                        <i class="fa-brands fa-creative-commons-by"></i>
+                        <i class="fa-brands fa-creative-commons-nc"></i>
+                        <i class="fa-brands fa-creative-commons-sa"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Blog/">Blog</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/syncthing/">syncthing</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/synctrain/">synctrain</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/03/06/%E7%BB%BF%E8%81%94DXP4800%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
+                                   title="绿联DXP4800基本使用"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">绿联DXP4800基本使用</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/post/deploy-your-own-web-page-chatgpt-zixsdg.html"
+                                   title="部署自己的网页chatgpt"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">部署自己的网页chatgpt</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+    <div class="comments-container border-box">
+        <div id="comments-anchor" class="comment-area-title border-box">
+            <i class="fas fa-comments"></i>&nbsp;评论
+        </div>
+        <div class="comment-plugin-fail border-box">
+    <span class="fail-tip">评论插件加载失败</span>
+    <button class="reload keep-button">点击重新加载</button>
+</div>
+<div class="comment-plugin-loading flex-center border-box">
+    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
+    <span class="load-tip">正在加载评论插件</span>
+</div>
+<script data-pjax>
+  window.KeepCommentPlugin = {}
+  window.KeepCommentPlugin.hideLoading = () => {
+    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
+    cplDom.style.display = 'none'
+  }
+  window.KeepCommentPlugin.loadFailHandle = () => {
+    window.KeepCommentPlugin.hideLoading()
+    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
+    cpfDom.style.display = 'flex'
+    cpfDom.querySelector('.reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+  }
+</script>
+
+        
+            
+
+    <div class="twikoo-container">
+        <div id="twikoo-comment"></div>
+        <script data-pjax
+                src="//unpkg.com/twikoo@1.6.39/dist/twikoo.all.min.js"
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        ></script>
+        <script data-pjax
+                async
+                onerror="window.KeepCommentPlugin.loadFailHandle()"
+        >
+          window.KeepCommentPlugin.initTwikoo = () => {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: '#twikoo-comment',
+                envId: 'https://twikoo.529213.xyz/',
+                region: '',
+                lang: 'zh-CN' || 'zh-CN'
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() => {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if ('true' === 'true') {
+            setTimeout(() => {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initTwikoo)
+          }
+        </script>
+    </div>
+
+
+        
+    </div>
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">Syncthing的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-text">Syncthing的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E7%AB%AF"><span class="nav-text">Windows端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E6%88%90UI%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">集成UI客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EWebUI%E7%9A%84Base%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">基于WebUI的Base客户端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iPhone%E5%92%8CiPad%E7%AB%AF"><span class="nav-text">iPhone和iPad端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Synctrain"><span class="nav-text">Synctrain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mobius-Sync"><span class="nav-text">Mobius Sync</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E9%85%8D%E7%BD%AE%EF%BC%88%E4%BB%85%E6%BC%94%E7%A4%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-text">Syncthing配置（仅演示局域网下的同步）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-Time"><span class="nav-text">Show Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2018</span>&nbsp;-&nbsp;2025
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Janz</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">Syncthing的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-text">Syncthing的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E7%AB%AF"><span class="nav-text">Windows端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E6%88%90UI%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">集成UI客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EWebUI%E7%9A%84Base%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-text">基于WebUI的Base客户端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iPhone%E5%92%8CiPad%E7%AB%AF"><span class="nav-text">iPhone和iPad端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Synctrain"><span class="nav-text">Synctrain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mobius-Sync"><span class="nav-text">Mobius Sync</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syncthing%E9%85%8D%E7%BD%AE%EF%BC%88%E4%BB%85%E6%BC%94%E7%A4%BA%E5%B1%80%E5%9F%9F%E7%BD%91%E4%B8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%EF%BC%89"><span class="nav-text">Syncthing配置（仅演示局域网下的同步）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-Time"><span class="nav-text">Show Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-text">结语</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/utils.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/header-shrink.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/back2top.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/toggle-theme.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/code-block.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/main.js"></script><script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/lazyload.js"></script>
+
+
+<div class="pjax">
+    
+        <!-- post-helper -->
+        <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- category-page -->
+    
+
+    <!-- links-page -->
+    
+
+    <!-- photos-page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    <script src="//unpkg.com/hexo-theme-keep@4.0.7/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
